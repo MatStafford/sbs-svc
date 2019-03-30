@@ -48,8 +48,9 @@ router.get('/services/clans', function (req, res) {
         res.send(body);
     });
 });
-router.get('/services/clans/:clanTag?/:members?', function (req, res) {
+router.get('/services/clans/:clanTag/:members?', function (req, res) {
     var clanTag = encodeURIComponent(req.params.clanTag);
+    console.log(clanTag);
     var members = (req.params.members);
     if (clanTag && !members) {
         request.get(('https://api.clashroyale.com/v1/clans/' + clanTag), {
