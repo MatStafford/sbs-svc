@@ -8,7 +8,7 @@ const bodyParser = require('body-parser');
 var cors = require('cors');
 
 // use it before all route definitions
-router.use(cors({origin: 'http://ec2-3-16-186-30.us-east-2.compute.amazonaws.com'}));
+router.use(cors({origin: 'http://sbs-clan.s3-website-us-west-1.amazonaws.com'}));
 
 
 
