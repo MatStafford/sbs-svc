@@ -17,7 +17,7 @@ var corsOptions = {
 };
 app.use(cors(corsOptions));
 app.options('*', cors());
-app.use(cors({ origin: 'http://localhost:4200' }));
+app.use(cors({ origin: 'http://ec2-3-16-186-30.us-east-2.compute.amazonaws.com' }));
 app.use(express.static('public'));
 app.listen(port, function () {
     console.log('Server started!');
