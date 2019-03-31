@@ -6,7 +6,7 @@ var querystring = require('querystring');
 var bodyParser = require('body-parser');
 var cors = require('cors');
 // use it before all route definitions
-router.use(cors({ origin: 'http://localhost:4200' }));
+router.use(cors({ origin: 'http://ec2-3-16-186-30.us-east-2.compute.amazonaws.com' }));
 var clanSearchOptions = {
     headers: { 'authorization': 'Bearer ' + token },
 };
