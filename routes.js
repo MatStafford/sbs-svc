@@ -4,9 +4,13 @@ const token = process.env.TOKEN;
 const request = require('request');
 const querystring = require('querystring');
 const bodyParser = require('body-parser');
-var cors = require('cors');
+//var cors = require('cors');
 // use it before all route definitions
-router.use(cors({ origin: 'http://ec2-3-16-186-30.us-east-2.compute.amazonaws.com' }));
+//router.use(cors({ origin: 'http://ec2-3-16-186-30.us-east-2.compute.amazonaws.com' }));
+const cors = require('cors');
+const userController = require('./controller/userController');
+// use it before all route definitions
+router.use(cors({ origin: 'http://localhost:4200' }));
 const clanSearchOptions = {
     headers: { 'authorization': 'Bearer ' + token },
 };
@@ -241,6 +245,8 @@ router.get('/services/locations/:locationId/rankings/clanwars', (req, res) => {
         res.send(body);
     });
 });
+// Users test routes
+router.route('/services/testPost').post(userController.createUser);
 router.use(bodyParser.json());
 router.route('/api/cats').post((req, res) => {
     res.send(201, req.body);
