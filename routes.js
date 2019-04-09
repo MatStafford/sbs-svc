@@ -4,6 +4,9 @@ const token = process.env.TOKEN;
 const request = require('request');
 const querystring = require('querystring');
 const bodyParser = require('body-parser');
+//var cors = require('cors');
+// use it before all route definitions
+//router.use(cors({ origin: 'http://ec2-3-16-186-30.us-east-2.compute.amazonaws.com' }));
 const cors = require('cors');
 const userController = require('./controller/userController');
 // use it before all route definitions
