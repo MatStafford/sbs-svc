@@ -4,11 +4,11 @@ const token = process.env.TOKEN;
 const request = require('request');
 const querystring = require('querystring');
 const bodyParser = require('body-parser');
-
-var cors = require('cors');
+const cors = require('cors');
+const userController = require('./controller/userController');
 
 // use it before all route definitions
-router.use(cors({origin: 'http://sbs-clan.s3-website-us-west-1.amazonaws.com'}));
+router.use(cors({origin: 'http://localhost:4200'}));
 
 
 
@@ -275,13 +275,12 @@ router.get('/services/locations/:locationId/rankings/clanwars', (req, res) => {
     });
 });
 
+// Users test routes
+router.route('/services/testPost').post(userController.createUser);
 
 router.use(bodyParser.json());
 router.route('/api/cats').post((req, res) => {
     res.send(201, req.body);
 });
-
-
-
 
 module.exports = router;
