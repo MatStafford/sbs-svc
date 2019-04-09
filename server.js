@@ -29,7 +29,5 @@ app.use(passport.initialize());
 app.options('*', cors());
 app.use(cors({ origin: 'http://localhost:4200' }));
 app.use(express.static('public'));
-app.listen(port, () => {
-    console.log('Server started!');
-});
 app.use('/', routes);
+//# sourceMappingURL=server.js.map

@@ -1,22 +1,14 @@
 const constants = require('../constants/constants');
+const userService = require('../services/user-service');
 
-module.exports.createUser = (req, res, next) => {
+module.exports.createUser = async (req, res, next) => {
+    let responseObj = <any>{};
     try {
-        let responseObj = <any>{};
-
         let data = req.body;
         console.log('req.body', req.body);
-        // call service with data
 
-        let responseFromService = {
-            status: constants.serviceStatus.USER_CREATED_SUCCESSFULLY,
-            body: {
-                id: '12345',
-                name: 'Users Name',
-                password: 1111,
-                phone: '999-999-9999'
-            }
-        };
+        // call service with data
+        let responseFromService = await userService.createUser(data);
         switch(responseFromService.status) {
             case constants.serviceStatus.USER_CREATED_SUCCESSFULLY:
                 responseObj.status = 200;
