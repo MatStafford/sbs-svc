@@ -36,4 +36,39 @@ module.exports.createUser = (serviceData) => __awaiter(this, void 0, void 0, fun
         return responseObj = constants.responseObj;
     }
 });
+module.exports.getUserList = (serviceData) => __awaiter(this, void 0, void 0, function* () {
+    let responseObj = {};
+    try {
+        let data = {
+            query: {},
+            model: User,
+            excludeFields: '-password -__v -_id',
+            pagination: {}
+        };
+        if (serviceData.skip && serviceData.limit) {
+            data.pagination = {
+                skip: serviceData.skip,
+                limit: serviceData.limit
+            };
+        }
+        else {
+            data.pagination = {};
+        }
+        let responseFromDatabase = yield crudRepository.find(data);
+        switch (responseFromDatabase.status) {
+            case constants.databaseStatus.ENTITY_FETCHED:
+                responseObj.body = responseFromDatabase.result;
+                responseObj.status = constants.serviceStatus.USER_LIST_FETCHED_SUCCESSFULLY;
+                break;
+            default:
+                responseObj = constants.responseObj;
+                break;
+        }
+        return responseObj;
+    }
+    catch (err) {
+        console.log('Something went wrong: Service: get user list', err);
+        return responseObj = constants.responseObj;
+    }
+});
 //# sourceMappingURL=user-service.js.map
