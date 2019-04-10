@@ -1,0 +1,9 @@
+const Joi = require('joi');
+const createUserSchema = Joi.object().keys({
+    name: Joi.string().required(),
+    password: Joi.string().required()
+});
+module.exports = {
+    'createUserSchema': createUserSchema
+};
+//# sourceMappingURL=user-schema.js.map

@@ -1,19 +1,20 @@
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 const constants = require('../constants/constants');
-module.exports.createUser = (req, res, next) => {
+const service = require('../services/user-service');
+module.exports.createUser = (req, res, next) => __awaiter(this, void 0, void 0, function* () {
+    let responseObj = {};
     try {
-        let responseObj = {};
         let data = req.body;
         console.log('req.body', req.body);
         // call service with data
-        let responseFromService = {
-            status: constants.serviceStatus.USER_CREATED_SUCCESSFULLY,
-            body: {
-                id: '12345',
-                name: 'Users Name',
-                password: 1111,
-                phone: '999-999-9999'
-            }
-        };
+        let responseFromService = yield service.createUser(data);
         switch (responseFromService.status) {
             case constants.serviceStatus.USER_CREATED_SUCCESSFULLY:
                 responseObj.status = 200;
@@ -24,12 +25,12 @@ module.exports.createUser = (req, res, next) => {
                 responseObj = constants.responseObj;
                 break;
         }
-        res.status(responseObj.status).send(responseObj);
+        return res.status(responseObj.status).send(responseObj);
     }
     catch (err) {
         console.log('Something went wrong in Controller: create user', err);
         let responseObj = constants.responseObj;
         return res.status(responseObj.status).send(responseObj);
     }
-};
+});
 //# sourceMappingURL=userController.js.map

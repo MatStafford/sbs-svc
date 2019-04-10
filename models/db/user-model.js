@@ -4,4 +4,4 @@ const userSchema = mongoose.Schema({
     password: String
 });
 module.exports = mongoose.model('User', userSchema);
-//# sourceMappingURL=user.js.map
+//# sourceMappingURL=user-model.js.map
