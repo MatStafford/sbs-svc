@@ -6,6 +6,8 @@ const querystring = require('querystring');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const userController = require('./controller/userController');
+const joiSchemaValiation = require('./helper/joi-schema-validation');
+const userSchema = require('./models/api/user-schema');
 
 // use it before all route definitions
 router.use(cors({origin: 'http://localhost:4200'}));
@@ -276,7 +278,8 @@ router.get('/services/locations/:locationId/rankings/clanwars', (req, res) => {
 });
 
 // Users test routes
-router.route('/services/testPost').post(userController.createUser);
+router.route('/services/testPost').post(joiSchemaValiation.validateBody(userSchema.createUserSchema)
+    ,userController.createUser);
 
 router.use(bodyParser.json());
 router.route('/api/cats').post((req, res) => {
