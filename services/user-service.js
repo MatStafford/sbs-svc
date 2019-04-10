@@ -6,8 +6,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-const constants = require('constants');
+const constants = require('../constants/constants');
 const User = require('../models/db/user-model');
+const crudRepository = require('../database/crudRepository');
 module.exports.createUser = (serviceData) => __awaiter(this, void 0, void 0, function* () {
     let responseObj = {};
     try {
@@ -15,8 +16,24 @@ module.exports.createUser = (serviceData) => __awaiter(this, void 0, void 0, fun
             name: serviceData.name,
             password: serviceData.password
         });
+        let data = {
+            model: user
+        };
+        let responseFromDatabase = yield crudRepository.insertData(data);
+        switch (responseFromDatabase.status) {
+            case constants.databaseStatus.ENTITY_CREATED:
+                responseObj.body = responseFromDatabase.result;
+                responseObj.status = constants.serviceStatus.USER_CREATED_SUCCESSFULLY;
+                break;
+            default:
+                responseObj = constants.responseObj;
+                break;
+        }
+        return responseObj;
     }
     catch (err) {
+        console.log('Something went wrong: Service: create user', err);
+        return responseObj = constants.responseObj;
     }
 });
 //# sourceMappingURL=user-service.js.map

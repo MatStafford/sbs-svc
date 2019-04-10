@@ -17,4 +17,27 @@ module.exports.createConnection = () => {
         });
     });
 };
+// can be used by multiple modules and services
+module.exports.insertData = (data) => {
+    return new Promise((resolve, reject) => {
+        try {
+            data.model.save().then(docs => {
+                // success
+                resolve({
+                    result: docs,
+                    status: constants.databaseStatus.ENTITY_CREATED
+                });
+            }).catch(err => {
+                // error
+                reject({
+                    error: err.message,
+                    status: constants.databaseStatus.DATABASE_ERROR
+                });
+            });
+        }
+        catch (err) {
+            console.log('Something went wrong: CrudRepo', err);
+        }
+    });
+};
 //# sourceMappingURL=crudRepository.js.map

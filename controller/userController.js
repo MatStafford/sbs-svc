@@ -7,14 +7,14 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 const constants = require('../constants/constants');
-const userService = require('../services/user-service');
+const service = require('../services/user-service');
 module.exports.createUser = (req, res, next) => __awaiter(this, void 0, void 0, function* () {
     let responseObj = {};
     try {
         let data = req.body;
         console.log('req.body', req.body);
         // call service with data
-        let responseFromService = yield userService.createUser(data);
+        let responseFromService = yield service.createUser(data);
         switch (responseFromService.status) {
             case constants.serviceStatus.USER_CREATED_SUCCESSFULLY:
                 responseObj.status = 200;
@@ -25,7 +25,7 @@ module.exports.createUser = (req, res, next) => __awaiter(this, void 0, void 0, 
                 responseObj = constants.responseObj;
                 break;
         }
-        res.status(responseObj.status).send(responseObj);
+        return res.status(responseObj.status).send(responseObj);
     }
     catch (err) {
         console.log('Something went wrong in Controller: create user', err);
