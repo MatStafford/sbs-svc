@@ -36,7 +36,29 @@ module.exports.insertData = (data) => {
                 })
             })
         }catch(err) {
-            console.log('Something went wrong: CrudRepo', err)
+            console.log('Something went wrong: CrudRepo: insert', err)
         }
     })
 };
+
+module.exports.find = (data) => {
+    return new Promise((resolve, reject) => {
+        try{
+            data.model.find(data.qeury, data.excludeFields, data.pagination).then(docs => {
+                // success
+                resolve({
+                    result: docs,
+                    status: constants.databaseStatus.ENTITY_FETCHED
+                })
+            }).catch(err => {
+                // error
+                reject({
+                    error: err.message,
+                    status: constants.databaseStatus.DATABASE_ERROR
+                })
+            })
+        }catch(err) {
+            console.log('Something went wrong: CrudRepo: find', err)
+        }
+    })
+}

@@ -33,4 +33,31 @@ module.exports.createUser = (req, res, next) => __awaiter(this, void 0, void 0, 
         return res.status(responseObj.status).send(responseObj);
     }
 });
+module.exports.getUserList = (req, res, next) => __awaiter(this, void 0, void 0, function* () {
+    let responseObj = {};
+    try {
+        let data = {
+            skip: req.query.skip,
+            limit: req.query.limit
+        };
+        // call service with data
+        let responseFromService = yield service.getUserList(data);
+        switch (responseFromService.status) {
+            case constants.serviceStatus.USER_LIST_FETCHED_SUCCESSFULLY:
+                responseObj.status = 200;
+                responseObj.message = constants.serviceStatus.USER_LIST_FETCHED_SUCCESSFULLY;
+                responseObj.body = responseFromService.body;
+                break;
+            default:
+                responseObj = constants.responseObj;
+                break;
+        }
+        return res.status(responseObj.status).send(responseObj);
+    }
+    catch (err) {
+        console.log('Something went wrong in Controller: get user list', err);
+        let responseObj = constants.responseObj;
+        return res.status(responseObj.status).send(responseObj);
+    }
+});
 //# sourceMappingURL=userController.js.map

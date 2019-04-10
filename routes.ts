@@ -277,9 +277,15 @@ router.get('/services/locations/:locationId/rankings/clanwars', (req, res) => {
     });
 });
 
+router.get('/services/testPost/list', joiSchemaValiation.validateQueryParams(userSchema.getUserListQuerySchema)
+    , userController.getUserList);
+
 // Users test routes
 router.route('/services/testPost').post(joiSchemaValiation.validateBody(userSchema.createUserSchema)
     ,userController.createUser);
+
+
+
 
 router.use(bodyParser.json());
 router.route('/api/cats').post((req, res) => {
