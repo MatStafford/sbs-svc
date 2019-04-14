@@ -60,4 +60,30 @@ module.exports.getUserList = (req, res, next) => __awaiter(this, void 0, void 0,
         return res.status(responseObj.status).send(responseObj);
     }
 });
+module.exports.getUserDetail = (req, res, next) => __awaiter(this, void 0, void 0, function* () {
+    let responseObj = {};
+    try {
+        let data = {
+            userId: req.params.userId
+        };
+        // call service with data
+        let responseFromService = yield service.getUserDetail(data);
+        switch (responseFromService.status) {
+            case constants.serviceStatus.USER_FETCHED_SUCCESSFULLY:
+                responseObj.status = 200;
+                responseObj.message = constants.serviceStatus.USER_FETCHED_SUCCESSFULLY;
+                responseObj.body = responseFromService.body;
+                break;
+            default:
+                responseObj = constants.responseObj;
+                break;
+        }
+        return res.status(responseObj.status).send(responseObj);
+    }
+    catch (err) {
+        console.log('Something went wrong in Controller: get user detail', err);
+        let responseObj = constants.responseObj;
+        return res.status(responseObj.status).send(responseObj);
+    }
+});
 //# sourceMappingURL=userController.js.map

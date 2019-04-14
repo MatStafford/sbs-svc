@@ -54,3 +54,30 @@ module.exports.getUserList = async (req, res, next) => {
         return res.status(responseObj.status).send(responseObj);
     }
 };
+
+module.exports.getUserDetail = async (req, res, next) => {
+    let responseObj = <any>{};
+    try {
+        let data = {
+            userId: req.params.userId
+        };
+
+        // call service with data
+        let responseFromService =  await service.getUserDetail(data);
+        switch(responseFromService.status) {
+            case constants.serviceStatus.USER_FETCHED_SUCCESSFULLY:
+                responseObj.status = 200;
+                responseObj.message = constants.serviceStatus.USER_FETCHED_SUCCESSFULLY;
+                responseObj.body = responseFromService.body;
+                break;
+            default:
+                responseObj = constants.responseObj;
+                break;
+        }
+        return res.status(responseObj.status).send(responseObj)
+    } catch(err) {
+        console.log('Something went wrong in Controller: get user detail', err);
+        let responseObj = constants.responseObj;
+        return res.status(responseObj.status).send(responseObj);
+    }
+};

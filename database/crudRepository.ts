@@ -61,4 +61,4 @@ module.exports.find = (data) => {
             console.log('Something went wrong: CrudRepo: find', err)
         }
     })
-}
+};
