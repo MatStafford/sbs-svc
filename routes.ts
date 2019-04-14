@@ -284,12 +284,7 @@ router.get('/services/testPost/list', joiSchemaValiation.validateQueryParams(use
 router.route('/services/testPost').post(joiSchemaValiation.validateBody(userSchema.createUserSchema)
     ,userController.createUser);
 
-
-
-
-router.use(bodyParser.json());
-router.route('/api/cats').post((req, res) => {
-    res.send(201, req.body);
-});
+router.get('/services/detail/:userId', joiSchemaValiation.validatePathParams(userSchema.getUserDetailPathParamSchema)
+    , userController.getUserDetail);
 
 module.exports = router;
